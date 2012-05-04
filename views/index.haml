@@ -1,0 +1,21 @@
+!!! 5
+%h1 howto
+%dl
+  %dt GET /
+  %dd show howto and queues
+  %dt POST /
+  %dd add url to queue
+
+%h1 process
+%h2 pid
+- if @pid == ''
+  %p process not running
+- else
+  %p= @pid
+%h2 queues
+- if @queues.empty?
+  %p empty
+- else
+  %ul
+    - @queues.each do |queue|
+      %li= queue
