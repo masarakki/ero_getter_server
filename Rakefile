@@ -1,4 +1,4 @@
-require_relative 'daemon/downloader'
+require_relative 'lib/downloader'
 
 desc 'start server'
 task 'start' do
@@ -14,7 +14,7 @@ namespace :backend do
         puts "backend task is already running: pid = #{pid}"
       end
     else
-      `ruby ./daemon/daemon.rb`
+      `ruby ./bin/daemon.rb`
     end
   end
 

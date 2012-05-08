@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby
 
 require 'logger'
-require_relative 'downloader'
+require_relative '../lib/downloader'
 
 Process.daemon
 pid = File.open(Downloader.pid_file, 'w') do |f|
