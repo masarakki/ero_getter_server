@@ -1,6 +1,7 @@
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
 
 class Downloader
+  autoload :Queue, 'downloader/queue'
   autoload :Base, 'downloader/base'
   autoload :ErogazouSokuhou, 'downloader/erogazou_sokuhou'
   autoload :NijigazouSokuhou, 'downloader/nijigazou_sokuhou'
@@ -11,6 +12,10 @@ class Downloader
 
   autoload :PmStyle, 'downloader/pm_style'
   autoload :Erobyte, 'downloader/erobyte'
+
+  def queue
+    @queue ||= Downloader::Queue.new
+  end
 
   def self.base_path
     path = File.join(ENV['HOME'], 'ero_getter')

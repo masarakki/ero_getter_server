@@ -1,17 +1,23 @@
 #!/usr/bin/env ruby
 
 require 'sinatra'
+require_relative '../lib/downloader'
 
 def bin_dir
   "#{ENV['HOME']}/Dropbox/bin"
 end
 
+def downloader
+  @downloader ||= Downloader.new
+end
+
 get '/' do
   @pid = `ruby #{bin_dir}/dget.rb pid`
-  @queues = `ruby #{bin_dir}/dget.rb queue`.split("\n")
+  @queues = downloader.queue.list
   haml :index
 end
 
 post '/' do
-  `ruby #{bin_dir}/dl_queue.rb #{params[:url]}` if params[:url]
+  downloader.queue.push params[:url] if params[:url]
+  'success'
 end

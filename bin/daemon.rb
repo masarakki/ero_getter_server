@@ -8,10 +8,13 @@ pid = File.open(Downloader.pid_file, 'w') do |f|
   f.write Process.pid
 end
 
+def downloader
+  @downloader ||= Downloader.new
+end
+
 loop do
   begin
-    urls = File.readlines(Downloader.queue_file)
-    url = urls.shift
+    url = downloader.queue.pop
     append = false
     if url
       begin
@@ -20,15 +23,7 @@ loop do
         LOG.warn e
         append = true
       ensure
-        File.open(Downloader::queue_file, "r+") do |f|
-          f.flock(File::LOCK_EX)
-          urls = f.readlines.select { |target| target != url }
-          urls.push url if append
-          f.rewind
-          f.truncate 0
-          f.write urls.join()
-          f.flush
-        end
+        downloader.queue.push url if append
       end
     else
       sleep 5
