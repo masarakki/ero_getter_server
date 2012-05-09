@@ -1,22 +1,37 @@
 !!! 5
 %title EroGetter Server
-%h1 howto
-%dl
-  %dt GET /
-  %dd show howto and queues
-  %dt POST /
-  %dd add url to queue
+%link{:rel => 'stylesheet', :href => '/bootstrap/css/bootstrap.css', :type => 'text/css'}
+%script{:src => 'http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', :type => 'text/javascript'}
+.container
+  %h1 EroGetter Server
 
-%h1 process
-%h2 pid
-- if @pid == ''
-  %p process not running
-- else
-  %p= @pid
-%h2 queues
-- if @queues.empty?
-  %p empty
-- else
-  %ul
-    - @queues.each do |queue|
-      %li= queue
+  .row
+    .span6
+      %h2 Usage
+      %dl
+        %dt GET /
+        %dd show usage and queues (this page)
+        %dt POST /
+        %dd add url to queue
+
+      %h2 Source
+      %ul
+        %li
+          %a{:href => 'https://github.com/masarakki/ero_getter_server'} EroGetter Server
+        %li
+          %a{:href => 'https://github.com/masarakki/ero_getter_chrome_extension'} EroGetter Chrome Extension
+
+    .span6
+      %h1 process
+      %h2 pid
+      - if @pid == ''
+        %p process not running
+      - else
+        %p= @pid
+      %h2 queues
+      - if @queues.empty?
+        %p empty
+      - else
+        %ul
+        - @queues.each do |queue|
+          %li= queue
