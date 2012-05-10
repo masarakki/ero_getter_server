@@ -20,9 +20,9 @@ module EroGetter
     post '/' do
       if params[:url] && downloader.strategy(params[:url])
         downloader.queue.push params[:url]
-        'success'
+        [200, 'success']
       else
-        'fail'
+        [403, 'invalid url']
       end
     end
   end
