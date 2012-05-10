@@ -9,11 +9,10 @@ module EroGetter
   class Server < Sinatra::Base
     set :root, File.expand_path(File.dirname(__FILE__) + '/..')
 
-    def bin_dir ; "#{ENV['HOME']}/Dropbox/bin" ; end
     def downloader ; @downloder ||= Downloader.new ; end
 
     get '/' do
-      @pid = `ruby #{bin_dir}/dget.rb pid`
+      @pid = downloader.pid
       @queues = downloader.queue.list
       haml :index
     end

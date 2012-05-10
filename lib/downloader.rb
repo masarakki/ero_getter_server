@@ -29,29 +29,20 @@ class Downloader
     file
   end
 
+  def pid
+    if File.exists?(self.class.pid_file)
+      File.read(self.class.pid_file)
+    else
+      'not running'
+    end
+  end
+
   def self.pid_file
     File.join(base_path, '.pid')
   end
 
   def self.download(url)
-
-    if url =~ /http:\/\/hot-kuma-vip\.net\/archives\/\d+\.html/
-      Downloader::ErogazouSokuhou.new(url).run
-    elsif url =~ /http:\/\/nijigazo\.2chblog\.jp\/archives\/\d+.html/
-      Downloader::NijigazouSokuhou.new(url).run
-    elsif url =~ /http:\/\/blog\.livedoor\.jp\/wakusoku\/archives\/\d+\.html/
-      Downloader::WakutekaSokuhou.new(url).run
-    elsif url =~ /http:\/\/kibonnnu\.2chblog\.jp\/archives\/\d+\.html/
-      Downloader::KibonNu.new(url).run
-    elsif url =~ /http:\/\/stalker\.livedoor\.biz\/archives\/\d+\.html/
-      Downloader::GazouSokuhou.new(url).run
-    elsif url =~ /http:\/\/mogavip\.com\/archives\/\d+\.html/
-      Downloader::MoeMink.new(url).run
-    elsif url =~ /http:\/\/mxserver08\.net\/new_pm\/main\/movie\d+\.html/
-      Downloader::PmStyle.new(url).run
-    elsif url =~ /http:\/\/www\.100-erobyte\.com\/main\/movie\d+\.html/
-      Downloader::Erobyte.new(url).run
-    end
+    self.new.download(url)
   end
 
   def download(url)
