@@ -9,7 +9,7 @@ EroGetter Server is a downloader suitable for adult sites.
     bundle install       # install gems
     rake backend:start   # run downloader job, you can stop it by
                          # rake backend:stop
-    cd front ; shotgun   # run server, see http://localhost:9393/
+    shotgun              # run server, see http://localhost:9393/
 
 now, you can't customize any configurations, but it will be fixed soon.
 
