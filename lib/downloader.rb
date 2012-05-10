@@ -34,6 +34,7 @@ class Downloader
   end
 
   def self.download(url)
+
     if url =~ /http:\/\/hot-kuma-vip\.net\/archives\/\d+\.html/
       Downloader::ErogazouSokuhou.new(url).run
     elsif url =~ /http:\/\/nijigazo\.2chblog\.jp\/archives\/\d+.html/
@@ -50,6 +51,35 @@ class Downloader
       Downloader::PmStyle.new(url).run
     elsif url =~ /http:\/\/www\.100-erobyte\.com\/main\/movie\d+\.html/
       Downloader::Erobyte.new(url).run
+    end
+  end
+
+  def download(url)
+    strategy = strategy(url)
+    if strategy
+      strategy.new(url).run
+    end
+  end
+
+  def strategy(url)
+    if url =~ /http:\/\/hot-kuma-vip\.net\/archives\/\d+\.html/
+      Downloader::ErogazouSokuhou
+    elsif url =~ /http:\/\/nijigazo\.2chblog\.jp\/archives\/\d+.html/
+      Downloader::NijigazouSokuhou
+    elsif url =~ /http:\/\/blog\.livedoor\.jp\/wakusoku\/archives\/\d+\.html/
+      Downloader::WakutekaSokuhou
+    elsif url =~ /http:\/\/kibonnnu\.2chblog\.jp\/archives\/\d+\.html/
+      Downloader::KibonNu
+    elsif url =~ /http:\/\/stalker\.livedoor\.biz\/archives\/\d+\.html/
+      Downloader::GazouSokuhou
+    elsif url =~ /http:\/\/mogavip\.com\/archives\/\d+\.html/
+      Downloader::MoeMink
+    elsif url =~ /http:\/\/mxserver08\.net\/new_pm\/main\/movie\d+\.html/
+      Downloader::PmStyle
+    elsif url =~ /http:\/\/www\.100-erobyte\.com\/main\/movie\d+\.html/
+      Downloader::Erobyte
+    else
+      nil
     end
   end
 end
