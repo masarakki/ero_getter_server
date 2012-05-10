@@ -1,8 +1,9 @@
 require 'rack/test'
+require 'app'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
   def app
-    Sinatra::Application
+    EroGetter::Server
   end
 end
