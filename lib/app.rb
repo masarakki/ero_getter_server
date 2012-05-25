@@ -4,12 +4,14 @@ $:.unshift File.dirname(__FILE__)
 
 require 'sinatra/base'
 require 'downloader'
+require 'ero_getter'
 
-module EroGetter
+class EroGetter
   class Server < Sinatra::Base
     set :root, File.expand_path(File.dirname(__FILE__) + '/..')
 
-    def downloader ; @downloder ||= Downloader.new ; end
+    def downloader ; @downloder ||= ::Downloader.new ; end
+    def ero_getter ; @ero_getter ||= EroGetter.new ; end
 
     get '/' do
       @pid = downloader.pid
@@ -18,7 +20,7 @@ module EroGetter
     end
 
     post '/' do
-      if params[:url] && downloader.strategy(params[:url])
+      if params[:url] && (ero_getter.detect(params[:url]) || downloader.strategy(params[:url]))
         downloader.queue.push params[:url]
         [200, 'success']
       else
