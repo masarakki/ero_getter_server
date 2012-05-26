@@ -9,6 +9,7 @@ require 'ero_getter'
 class EroGetter
   class Server < Sinatra::Base
     set :root, File.expand_path(File.dirname(__FILE__) + '/..')
+    enable :logging
 
     def downloader ; @downloder ||= ::Downloader.new ; end
     def ero_getter ; @ero_getter ||= EroGetter.new ; end
