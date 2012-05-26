@@ -6,7 +6,7 @@ class Downloader::PmStyle < Downloader::Base
     path = image_url.match(/(pm_.+?)(\d+)[a|b|c]\.zip$/)
     genre = path[1]
     num = "%06d"%path[2]
-    dirname = File.join(base_path, 'pm_store', [genre, num].join("_"))
+    dirname = File.join(base_path, 'pm_style', [genre, num].join("_"))
     mkdir(dirname) unless File.exists?(dirname)
     dirname
   end
