@@ -1,5 +1,6 @@
 source :rubygems
 
+gem 'rake'
 gem 'sinatra'
 gem 'shotgun'
 gem 'haml'
@@ -10,6 +11,7 @@ gem 'redis'
 gem 'ero_getter'
 
 group :development, :test do
+  gem 'pry'
   gem 'rspec'
   gem 'rack-test'
 end
