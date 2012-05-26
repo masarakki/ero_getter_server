@@ -2,7 +2,7 @@ require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'httpclient'
-require 'zip/zip'
+require 'zipruby'
 require 'digest/md5'
 
 class Downloader::Base
@@ -23,20 +23,14 @@ class Downloader::Base
   end
 
   def unzip(zip_data)
-    tmp_file = File.join(base_path, Digest::MD5.hexdigest(zip_data))
-    begin
-      File.open(tmp_file, 'wb') { |f| f.write zip_data }
-      result = []
-      Zip::ZipInputStream.open(tmp_file) do |zip|
-        while entry = zip.get_next_entry
-          filename = entry.name_in(entry.name_encoding)
-          if entry.file? && !filename.match(/\.(txt|html)$/)
-            result << [filename, entry.get_input_stream {|f| f.read}]
-          end
+    result = []
+    Zip::Archive.open_buffer(zip_data) do |archive|
+      archive.num_files.times do |i|
+        entry_name = archive.get_name(i)
+        archive.fopen(entry_name) do |f|
+          result << [f.name, f.read]
         end
       end
-    ensure
-      File.delete tmp_file if File.exists?(tmp_file)
     end
     result
   end
