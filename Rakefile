@@ -1,6 +1,12 @@
 require_relative 'lib/downloader'
 
-task :default => :start
+task :default => :spec
+
+require 'rspec/core'
+require 'rspec/core/rake_task'
+RSpec::Core::RakeTask.new(:spec) do |spec|
+  spec.pattern = FileList['spec/**/*_spec.rb']
+end
 
 desc 'start server'
 task 'start' do
