@@ -4,7 +4,6 @@ class Downloader
   autoload :Queue, 'downloader/queue'
   autoload :Base, 'downloader/base'
   autoload :ErogazouSokuhou, 'downloader/erogazou_sokuhou'
-  autoload :NijigazouSokuhou, 'downloader/nijigazou_sokuhou'
   autoload :WakutekaSokuhou, 'downloader/wakuteka_sokuhou'
   autoload :KibonNu, 'downloader/kibon_nu'
   autoload :GazouSokuhou, 'downloader/gazou_sokuhou'
@@ -56,7 +55,7 @@ class Downloader
     if url =~ /http:\/\/hot-kuma-vip\.net\/archives\/\d+\.html/
       Downloader::ErogazouSokuhou
     elsif url =~ /http:\/\/nijigazo\.2chblog\.jp\/archives\/\d+.html/
-      Downloader::NijigazouSokuhou
+      NijigazouSokuhou
     elsif url =~ /http:\/\/blog\.livedoor\.jp\/wakusoku\/archives\/\d+\.html/
       Downloader::WakutekaSokuhou
     elsif url =~ /http:\/\/kibonnnu\.2chblog\.jp\/archives\/\d+\.html/
