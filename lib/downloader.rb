@@ -1,4 +1,5 @@
 $:.unshift(File.expand_path(File.dirname(__FILE__)))
+require 'ero_getter'
 
 class Downloader
   autoload :Queue, 'downloader/queue'
