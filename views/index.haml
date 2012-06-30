@@ -21,6 +21,11 @@
         %li
           %a{:href => 'https://github.com/masarakki/ero_getter_chrome_extension'} EroGetter Chrome Extension
 
+      %h2 Sites
+      %ul
+        - @sites.each do |site|
+          %li= site.site_name
+
     .span6
       %h1 process
       %h2 pid

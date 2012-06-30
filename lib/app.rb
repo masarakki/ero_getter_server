@@ -17,6 +17,7 @@ class EroGetter
     get '/' do
       @pid = downloader.pid
       @queues = downloader.queue.list
+      @sites = EroGetter.url_mapping.map(&:last)
       haml :index
     end
 
