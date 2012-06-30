@@ -2,6 +2,7 @@
 
 require 'logger'
 require_relative '../lib/downloader'
+require 'ero_getter'
 
 log = Logger.new('log/daemon.log')
 log.level = Logger::WARN
@@ -9,6 +10,10 @@ log.level = Logger::WARN
 Process.daemon
 pid = File.open(Downloader.pid_file, 'w') do |f|
   f.write Process.pid
+end
+
+def ero_getter
+  @ero_getter ||= EroGetter.new
 end
 
 def downloader
@@ -20,8 +25,13 @@ loop do
     url = downloader.queue.pop
     append = false
     if url
+      url.strip!
       begin
-        Downloader.download(url.strip)
+        if klass = ero_getter.detect(url)
+          klass.new(url).run
+        else
+          Downloader.download(url)
+        end
       rescue => e
         log.warn e
         append = true
