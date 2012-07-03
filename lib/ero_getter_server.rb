@@ -1,5 +1,5 @@
 require 'ero_getter'
 
 class EroGetter
-  autoload :Server, 'app'
+  autoload :Server, 'ero_getter/server'
 end

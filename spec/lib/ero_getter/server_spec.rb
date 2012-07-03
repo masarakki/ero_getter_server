@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'app'
 
 describe EroGetter::Server do
 
