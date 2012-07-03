@@ -1,5 +1,5 @@
+require 'ero_getter_server'
 require 'rack/test'
-require 'app'
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods

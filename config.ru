@@ -1,4 +1,5 @@
-require File.expand_path(File.dirname(__FILE__) + '/lib/app.rb')
+$:.unshift(File.expand_path(File.dirname(__FILE__) + '/lib'))
+require 'ero_getter_server'
 require 'logger'
 
 logger = Logger.new('log/server.log')
