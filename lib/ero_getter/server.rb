@@ -9,11 +9,10 @@ class EroGetter
     set :root, File.expand_path(File.dirname(__FILE__) + '/..')
     enable :logging
 
-    def downloader ; @downloder ||= EroGetter::Downloader.new ; end
     def ero_getter ; @ero_getter ||= EroGetter.new ; end
 
     get '/' do
-      @pid = downloader.pid
+      @pid = ero_getter.downloader.pid
       @queues = ero_getter.queue.list
       @sites = EroGetter.url_mapping.map(&:last)
       haml :index

@@ -1,18 +1,19 @@
 require 'spec_helper'
 
 describe EroGetter::Server do
-
-  let(:downloader) { EroGetter::Downloader.new }
   let(:ero_getter) { EroGetter.new }
 
   before do
-    downloader
     ero_getter
-    EroGetter::Downloader.stub(:new).and_return(downloader)
     EroGetter.stub(:new).and_return(ero_getter)
   end
 
   describe 'GET /' do
+    it "assigns @pid" do
+      ero_getter.downloader.should_receive(:pid).and_return(100)
+      get '/'
+    end
+
     it "assigns @queues" do
       ero_getter.queue.should_receive(:list).and_return(['http://example.com/1.html', 'http://example.com/2.html'])
       get '/'
@@ -37,7 +38,7 @@ describe EroGetter::Server do
     context :with_invalid_url do
       before do
         ero_getter.queue.stub(:push).and_return(true)
-        downloader.stub(:strategy).and_return(nil)
+        ero_getter.downloader.stub(:strategy).and_return(nil)
       end
 
       it "error response" do
@@ -55,7 +56,7 @@ describe EroGetter::Server do
     context :with_valid_url do
       before do
         ero_getter.queue.stub(:push).and_return(true)
-        downloader.stub(:strategy).and_return(true)
+        ero_getter.stub(:detect).and_return(true)
       end
 
       it "push queue" do
