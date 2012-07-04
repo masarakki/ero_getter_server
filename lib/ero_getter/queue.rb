@@ -1,6 +1,6 @@
 require 'redis'
 
-class Downloader::Queue
+class EroGetter::Queue
   @@key = "download_queue"
 
   def initialize

@@ -5,7 +5,7 @@ require 'httpclient'
 require 'zipruby'
 require 'digest/md5'
 
-class Downloader::Base
+class EroGetter::Downloader::Base
   attr_reader :url
 
   def initialize(url)
@@ -13,7 +13,7 @@ class Downloader::Base
   end
 
   def base_path
-    Downloader.base_path
+    EroGetter::Downloader.base_path
   end
 
   def mkdir(path)

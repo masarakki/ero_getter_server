@@ -1,18 +1,10 @@
-$:.unshift(File.expand_path(File.dirname(__FILE__)))
-require 'ero_getter'
+class EroGetter::Downloader
+  autoload :Base, 'ero_getter/downloader/base'
+  autoload :ErogazouSokuhou, 'ero_getter/downloader/erogazou_sokuhou'
+  autoload :KibonNu, 'ero_getter/downloader/kibon_nu'
+  autoload :MoeMink, 'ero_getter/downloader/moe_mink'
 
-class Downloader
-  autoload :Queue, 'downloader/queue'
-  autoload :Base, 'downloader/base'
-  autoload :ErogazouSokuhou, 'downloader/erogazou_sokuhou'
-  autoload :KibonNu, 'downloader/kibon_nu'
-  autoload :MoeMink, 'downloader/moe_mink'
-
-  autoload :Erobyte, 'downloader/erobyte'
-
-  def queue
-    @queue ||= Downloader::Queue.new
-  end
+  autoload :Erobyte, 'ero_getter/downloader/erobyte'
 
   def self.base_path
     path = File.join(ENV['HOME'], 'ero_getter')
@@ -51,13 +43,13 @@ class Downloader
 
   def strategy(url)
     if url =~ /http:\/\/hot-kuma-vip\.net\/archives\/\d+\.html/
-      Downloader::ErogazouSokuhou
+      EroGetter::Downloader::ErogazouSokuhou
     elsif url =~ /http:\/\/kibonnnu\.2chblog\.jp\/archives\/\d+\.html/
-      Downloader::KibonNu
+      EroGetter::Downloader::KibonNu
     elsif url =~ /http:\/\/mogavip\.com\/archives\/\d+\.html/
-      Downloader::MoeMink
+      EroGetter::Downloader::MoeMink
     elsif url =~ /http:\/\/www\.100-erobyte\.com\/main\/movie\d+\.html/
-      Downloader::Erobyte
+      EroGetter::Downloader::Erobyte
     else
       nil
     end

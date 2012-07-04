@@ -1,4 +1,4 @@
-class Downloader::KibonNu < Downloader::Base
+class EroGetter::Downloader::KibonNu < EroGetter::Downloader::Base
   def dirname
     unless @dirname
       url =~ /http:\/\/kibonnnu\.2chblog\.jp\/archives\/([0-9]+)\.html/

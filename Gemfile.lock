@@ -66,6 +66,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  activesupport
   ero_getter
   guard-rspec
   haml

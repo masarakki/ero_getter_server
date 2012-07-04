@@ -1,4 +1,4 @@
-class Downloader::ErogazouSokuhou < Downloader::Base
+class EroGetter::Downloader::ErogazouSokuhou < EroGetter::Downloader::Base
   def dirname
     unless @dirname
       url =~ /http:\/\/hot-kuma-vip.net\/archives\/([0-9]+)\.html/

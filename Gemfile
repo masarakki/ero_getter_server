@@ -9,6 +9,7 @@ gem 'zipruby'
 gem 'httpclient'
 gem 'redis'
 gem 'ero_getter'
+gem 'activesupport'
 
 group :development, :test do
   gem 'pry'

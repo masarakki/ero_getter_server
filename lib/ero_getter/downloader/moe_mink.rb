@@ -1,4 +1,4 @@
-class Downloader::MoeMink < Downloader::Base
+class EroGetter::Downloader::MoeMink < EroGetter::Downloader::Base
   def dirname
     unless @dirname
       url =~ /http:\/\/mogavip\.com\/archives\/([0-9]+)\.html/

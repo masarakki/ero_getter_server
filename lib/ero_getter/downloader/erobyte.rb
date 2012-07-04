@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'kconv'
 
-class Downloader::Erobyte < Downloader::Base
+class EroGetter::Downloader::Erobyte < EroGetter::Downloader::Base
   def dirname(image_url = nil)
     path = image_url.match(/\/([a-zA-Z_0-9]+).\.zip$/)
     dirname = File.join(base_path, 'erobyte', path[1])
