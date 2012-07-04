@@ -6,7 +6,7 @@ require 'sinatra/base'
 
 class EroGetter
   class Server < Sinatra::Base
-    set :root, File.expand_path(File.dirname(__FILE__) + '/..')
+    set :root, File.expand_path(File.dirname(__FILE__) + '/../..')
     enable :logging
 
     def ero_getter ; @ero_getter ||= EroGetter.new ; end
