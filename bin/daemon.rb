@@ -1,14 +1,15 @@
 #!/usr/bin/env ruby
 
+$:.unshift File.expand_path(File.dirname(__FILE__) + '/../lib')
+
+require 'ero_getter_server'
 require 'logger'
-require_relative '../lib/downloader'
-require 'ero_getter'
 
 log = Logger.new('log/daemon.log')
 log.level = Logger::WARN
 
 Process.daemon
-pid = File.open(Downloader.pid_file, 'w') do |f|
+pid = File.open(EroGetter::Downloader.pid_file, 'w') do |f|
   f.write Process.pid
 end
 
@@ -17,12 +18,12 @@ def ero_getter
 end
 
 def downloader
-  @downloader ||= Downloader.new
+  @downloader ||= EroGetter::Downloader.new
 end
 
 loop do
   begin
-    url = downloader.queue.pop
+    url = ero_getter.queue.pop
     append = false
     if url
       url.strip!
@@ -30,13 +31,13 @@ loop do
         if klass = ero_getter.detect(url)
           klass.new(url).run
         else
-          Downloader.download(url)
+          EroGetter::Downloader.download(url)
         end
       rescue => e
         log.warn e
         append = true
       ensure
-        downloader.queue.push url if append
+        ero_getter.queue.push url if append
       end
     else
       sleep 5
