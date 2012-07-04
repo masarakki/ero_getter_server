@@ -1,5 +1,3 @@
-require_relative 'lib/downloader'
-
 task :default => :spec
 
 require 'rspec/core'
