@@ -20,7 +20,7 @@ describe EroGetter::Server do
     end
 
     it "assigns @sites" do
-      EroGetter.should_receive(:url_mapping).and_return({:hoge => :item1, :hage => :item2})
+      EroGetter.should_receive(:url_mapping).and_return({:hoge => NijigazouSokuhou})
       get '/'
     end
   end
