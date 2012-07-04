@@ -23,8 +23,8 @@ end
 namespace :backend do
   desc 'start backend task'
   task :start do
-    if File.exists?(Downloader.pid_file)
-      pid = File.read(Downloader.pid_file)
+    if File.exists?(EroGetter::Downloader.pid_file)
+      pid = File.read(EroGetter::Downloader.pid_file)
       if pid && `ps --pid #{pid} | grep ruby` != ''
         puts "backend task is already running: pid = #{pid}"
       else
@@ -37,11 +37,11 @@ namespace :backend do
 
   desc 'stop backend task'
   task :stop do
-    if File.exists? Downloader.pid_file
-      pid = File.read Downloader.pid_file
+    if File.exists? EroGetter::Downloader.pid_file
+      pid = File.read EroGetter::Downloader.pid_file
       if pid
         `kill #{pid}`
-        `rm #{Downloader.pid_file}`
+        `rm #{EroGetter::Downloader.pid_file}`
       end
     end
   end
