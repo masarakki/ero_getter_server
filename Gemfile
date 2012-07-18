@@ -17,3 +17,7 @@ group :development, :test do
   gem 'rack-test'
   gem 'guard-rspec'
 end
+
+group :test do
+  gem 'fakefs'
+end
