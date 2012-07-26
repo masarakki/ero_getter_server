@@ -49,4 +49,10 @@ namespace :backend do
       end
     end
   end
+
+  desc 'restart backend task'
+  task :restart do
+    Rake::Task['backend:stop'].invoke
+    Rake::Task['backend:start'].invoke
+  end
 end
