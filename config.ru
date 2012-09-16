@@ -3,5 +3,8 @@ require 'ero_getter_server'
 require 'logger'
 
 logger = Logger.new('log/server.log')
+class Logger
+  alias write <<
+end
 use Rack::CommonLogger, logger
 run EroGetter::Server
