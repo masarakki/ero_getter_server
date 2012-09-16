@@ -2,6 +2,7 @@
 *.rbc
 .bundle
 .config
+rack.pid
 coverage
 InstalledFiles
 lib/bundler/man
