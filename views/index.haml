@@ -27,16 +27,14 @@
           %li= site.site_name
 
     .span6
-      %h1 process
+      %h1 Workers
       %h2 pid
-      - if @pid == ''
-        %p process not running
+      - if @worker
+        = @worker.pid
       - else
-        %p= @pid
+        NOT RUNNING
+      %h2 run
+      BACKGROUND=true COUNT=1 QUEUE=ero_getter be rake resque:workers
       %h2 queues
-      - if @queues.empty?
-        %p empty
-      - else
-        %ul
-        - @queues.each do |queue|
-          %li= queue
+      = @queues
+      %a{:href => '/queue'} details

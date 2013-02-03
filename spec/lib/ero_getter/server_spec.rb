@@ -9,16 +9,10 @@ describe EroGetter::Server do
   end
 
   describe 'GET /' do
-    it "assigns @pid" do
-      ero_getter.downloader.should_receive(:pid).and_return(100)
-      get '/'
-    end
-
     it "assigns @queues" do
-      ero_getter.queue.should_receive(:list).and_return(['http://example.com/1.html', 'http://example.com/2.html'])
+      Resque.should_receive(:size).with(:ero_getter).and_return :size
       get '/'
     end
-
     it "assigns @sites" do
       EroGetter.should_receive(:url_mapping).and_return({:hoge => NijigazouSokuhou})
       get '/'
@@ -31,13 +25,12 @@ describe EroGetter::Server do
     context :without_url do
       it "error response" do
         post '/'
-        last_response.ok?.should be_false
+        last_response.should_not be_ok
       end
     end
 
     context :with_invalid_url do
       before do
-        ero_getter.queue.stub(:push).and_return(true)
         ero_getter.downloader.stub(:strategy).and_return(nil)
       end
 
@@ -48,14 +41,14 @@ describe EroGetter::Server do
       end
 
       it "not queued" do
-        ero_getter.queue.should_not_receive(:push)
+        Resque.should_not_receive(:enqueue)
         post '/', url: url
       end
     end
 
     context :with_valid_url do
       before do
-        ero_getter.queue.stub(:push).and_return(true)
+        Resque.stub(:enqueue).and_return(true)
         ero_getter.stub(:detect).and_return(true)
       end
 
@@ -66,7 +59,7 @@ describe EroGetter::Server do
       end
 
       it "queue url" do
-        ero_getter.queue.should_receive(:push).with(url)
+        Resque.should_receive(:enqueue).with(EroGetter::Job, url)
         post '/', url: url
       end
     end
