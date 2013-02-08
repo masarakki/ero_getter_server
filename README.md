@@ -7,11 +7,16 @@ EroGetter Server is a downloader suitable for adult sites.
 1) start server
 
     bundle install       # install gems
-    rake backend:start   # run downloader job, you can stop it by
-                         # rake backend:stop
     rackup -p 9393       # run server, see http://localhost:9393/
+    bundle exec rake resque:work QUEUE=ero_getter # run downloader job
 
-now, you can't customize any configurations, but it will be fixed soon.
+OR run with foreman
+
+    bundle exec foreman start
+
+OR generate export startup scripts by foreman
+
+    bundle exec foreman export supervisor /etc/supervisor -a erogetter
 
 2) order a url
 
