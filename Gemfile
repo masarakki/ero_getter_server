@@ -9,6 +9,7 @@ gem 'httpclient'
 gem 'ero_getter'
 gem 'activesupport'
 gem 'resque'
+gem 'foreman'
 
 group :development, :test do
   gem 'pry'
