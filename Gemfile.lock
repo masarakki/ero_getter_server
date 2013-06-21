@@ -7,7 +7,7 @@ GEM
     coderay (1.0.9)
     diff-lcs (1.2.4)
     dotenv (0.8.0)
-    ero_getter (1.7.0)
+    ero_getter (1.7.1)
       activesupport
       httpclient
       nokogiri
