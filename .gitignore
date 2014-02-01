@@ -17,5 +17,6 @@ tmp
 .yardoc
 _yardoc
 doc/
-log/*.log
+log/
 .rvmrc
+vendor/
