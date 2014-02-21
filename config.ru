@@ -3,7 +3,7 @@ require 'ero_getter_server'
 require 'resque/server'
 require 'logger'
 
-logger = Logger.new('log/server.log')
+logger = Logger.new(STDOUT)
 class Logger
   alias write <<
 end
