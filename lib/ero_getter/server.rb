@@ -1,12 +1,11 @@
 require 'sinatra/base'
 require 'resque'
 
-class EroGetter
+module EroGetter
   class Server < Sinatra::Base
     set :root, File.expand_path(File.dirname(__FILE__) + '/../..')
     enable :logging
 
-    def ero_getter ; @ero_getter ||= EroGetter.new ; end
     def worker
       @worker ||= Resque.workers.find do |worker|
         worker.queues.grep /ero_getter/
@@ -25,7 +24,7 @@ class EroGetter
     end
 
     post '/' do
-      if params[:url] && ero_getter.detect(params[:url])
+      if params[:url] && EroGetter.detect(params[:url])
         Resque.enqueue(EroGetter::Job, params[:url])
         [200, 'success']
       else
