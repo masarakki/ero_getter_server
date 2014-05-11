@@ -7,7 +7,7 @@ gem 'nokogiri'
 gem 'zipruby'
 gem 'httpclient'
 gem 'ero_getter', '~> 2.0'
-gem 'activesupport', '~> 4.0'
+gem 'activesupport'
 gem 'resque'
 gem 'foreman'
 
